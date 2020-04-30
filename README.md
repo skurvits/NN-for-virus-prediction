@@ -1,4 +1,4 @@
-# Project: testing and setup
+# Project: setup and testing
 
 The code is converted to Python3. This was done pretty lazily, basically substituting only "print" commands and replacing some functions. So be prepared for a lot of deprecated warning signs.
 
@@ -6,8 +6,12 @@ Baseline models use data from the `./data/kmer_data` folder, where the datasets 
 
 Have not tested yet `predict_only.py` and data generators (should work in Linux).
 
-**For testing the frequency, pattern branch and merge for 3 epochs each (1 would suffice too) and saving the logs:**
+**In HPC** - full path `/gpfs/hpc/home/vootorav/proj/NN-for-virus-prediction` (should be accessible) - you must first create an enviroment with conda using the `env.yml` with command `conda env create -f env.yml`. This creates the necessary enviroment "virus_nn" for your user in HPC. To run some python command, use the script `runGPU.sh`, where you have to modify the script with the command of your liking (substituting the last `python ...`), **modify the EMAIL and other SBATCH fields** and then run
+```
+sbatch runGPU.sh
+```
 
+**For testing the frequency, pattern branch and merge for 3 epochs each (1 would suffice too) and saving the logs:**
 ```bash
 python ./frequency_branch.py ./out/freq_test --input_path ./data/DNA_data/fullset --epochs 3 --filter_size 8 --layer_sizes 1000 --dropout 0.1 --learning_rate 0.001 --lr_decay None | tee -a ./out/freq_log.txt
 python ./pattern_branch.py ./out/pattern_test --input_path ./data/DNA_data/fullset --epochs 3 --filter_size 8 --layer_sizes 1000 --dropout 0.1 --learning_rate 0.001 --lr_decay None | tee -a ./out/pattern_log.txt
@@ -15,13 +19,11 @@ python ./merge_and_retrain.py ./out/merged_test --input_path ./data/DNA_data/ful
 ```
 
 **For testing the full model end2end and saving the logs:**
-
 ```bash
 python ./ViraMiner_end2end.py ./out/full_test --input_path ./data/DNA_data/fullset --epochs 3 --dropout 0.1 --learning_rate 0.001 --lr_decay None | tee -a ./out/full_log.txt
 ```
 
 **To run the RF on transformed dataset as described down below (using the 3-mer data):**
-
 ```bash
 python ./n-mer_freq.py --RF --nmer 3 True --input_path ./data/kmer_data/300_0N_3k --save_path ./out/rf_model | tee -a out/rf_log.txt 
 ```
