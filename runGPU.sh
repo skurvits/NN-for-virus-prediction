@@ -2,7 +2,7 @@
 #SBATCH -J gen-net-job
 #SBATCH --time=1:00:00
 #SBATCH --mail-type=ALL
-#SBATCH --mail-user=alvinmeltsov@gmail.com
+#SBATCH --mail-user=yourmail@gmail.com
 #SBATCH --partition=gpu
 #SBATCH --gres=gpu:tesla:1
 #SBATCH --mem=32000
