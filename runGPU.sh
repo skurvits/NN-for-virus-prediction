@@ -5,7 +5,7 @@
 #SBATCH --mail-user=alvinmeltsov@gmail.com
 #SBATCH --partition=gpu
 #SBATCH --gres=gpu:tesla:1
-#SBATCH --mem=24000
+#SBATCH --mem=32000
 #SBATCH --cpus-per-task=4
 
 module load python/3.6.3/CUDA-9.0
@@ -20,19 +20,17 @@ module load python/3.6.3/CUDA-9.0
 # TODO: Activate the gqn enviroment first!
 # TODO: EMAIL and TIME fields!
 
-# CUDA for GPUs
-export CUDA_VISIBLE_DEVICES=0,1
-
-# start TensorBoard in background for logging
-tensorboard --logdir "./log" &
-TENSORBOARD_PID=$!
-echo "Started Tensorboard with PID: $TENSORBOARD_PID"
+# CUDA for GPUs - 0 = 1 gpu; 1 = 2 gpus...
+export CUDA_VISIBLE_DEVICES=0
+# add some deps https://github.com/tensorflow/tensorflow/issues/20271
+export LD_LIBRARY_PATH=/storage/software/python/3.6.3/CUDA-9.0/pkgs/cudnn-7.1.2-cuda9.0_0/lib/:$LD_LIBRARY_PATH
+export LD_LIBRARY_PATH=/storage/software/python/3.6.3/CUDA-9.0/pkgs/cudatoolkit-9.0-h13b8566_0/lib/:$LD_LIBRARY_PATH
 
 # Start your script
 # python "$@"
 
 # or just run it here:
-python ./frequency_branch.py ./out/freq_test \ 
+python frequency_branch.py ./out/freq_test \
 	--input_path ./data/DNA_data/fullset  \
 	--epochs 3 \
 	--filter_size 8 \
