@@ -34,6 +34,15 @@ python ./n-mer_freq.py --RF --nmer 3 True --input_path ./data/kmer_data/300_0N_3
 python ./baseline_on_sequence.py --input_path ./data/DNA_data/fullset | tee -a out/rf_seq_log.txt 
 ```
 
+**Sequence generator from codon distribution
+
+```
+python3 sequence_generator.py codonfile_A.txt 50 codonfile_B.txt 50 finaltest.csv
+```
+Codon files are in a format codoname:probability.
+50 sequences of lenght 300 are generated from that distribution.
+Finaltest.csv is the name of the outputfile.
+
 # Original instructions:
 
 ## Using pre-trained ViraMiner
