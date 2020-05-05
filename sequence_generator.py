@@ -48,7 +48,7 @@ def generate_random_sequence(length):
 	return sequence
 
 
-def gen_dataset(filename_A, length_A, filename_B, length_B):
+def gen_dataset(filename_A, length_A, filename_B, length_B, outputfile):
 	df = pd.DataFrame()
 	d = {}
 	with open(filename_A) as f:
@@ -80,7 +80,7 @@ def gen_dataset(filename_A, length_A, filename_B, length_B):
 
 		#print(str("seqB_" + str(i) + "," + ''.join(map(str, my_lst)) + ",1"))
 	df = df.fillna(0)
-	np.savetxt('OutPut_T.csv', df, delimiter='\t', fmt='%i')
+	np.savetxt(outputfile, df, delimiter='\t', fmt='%i')
 	#df.to_csv('OutPut_T.csv', index=False)
 	return df
 
@@ -110,10 +110,16 @@ my_parser.add_argument('length_B',
                        type=int,
                        help='Number of 300 nucleotid long sequences generated form file B')
 
+my_parser.add_argument('outputfile',
+                       metavar='outputfile',
+                       type=str,
+                       help='Name of the output file')
+
+
 # Execute the parse_args() method
 args = my_parser.parse_args()
 
-print(gen_dataset(args.file_A, args.length_A, args.file_B, args.length_B))
+print(gen_dataset(args.file_A, args.length_A, args.file_B, args.length_B, args.outputfile))
 
 #Source:  http://claresloggett.github.io/python_workshops/improved_kmers.html
 
