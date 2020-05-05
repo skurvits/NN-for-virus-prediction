@@ -17,7 +17,7 @@ module load python/3.6.3/CUDA-9.0
 # runGPU.sh script.py --par1 value1 --par2 value2 ...
 # ... or just paste the command below
 #
-# TODO: Activate the gqn enviroment first!
+# TODO: Activate the virus-nn enviroment first!
 # TODO: EMAIL and TIME fields!
 
 # CUDA for GPUs - 0 = 1 gpu; 1 = 2 gpus...
