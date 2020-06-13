@@ -1,0 +1,7 @@
+train data (98853, 64)       test data (12338, 64)
+starting to fit RF
+done fitting RF
+Random Forest TRAIN ROC area under the curve 
+ 1.0
+Random Forest TEST ROC area under the curve 
+ 0.8296646523457867
