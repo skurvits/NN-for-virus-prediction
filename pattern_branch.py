@@ -9,6 +9,19 @@ from sklearn.metrics import roc_auc_score
 from helper_with_N import *
 import argparse
 
+# NOTE: quickfix based on this:
+# https://www.cicoria.com/keras-tensor-flow-cublas_status_not_initialized/
+import tensorflow as tf  
+from keras.backend.tensorflow_backend import set_session  
+
+config = tf.ConfigProto()
+config.gpu_options.allow_growth = True  # dynamically grow the memory used on the GPU  
+config.log_device_placement = True  # to log device placement (on which device the operation ran)  
+                                    # (nothing gets printed in Jupyter, only if you run it standalone)
+sess = tf.Session(config=config)  
+set_session(sess)  # set this TensorFlow session as the default session for Keras  
+# end
+
 # You should also change hardcoded values in helper_with_N if you change this
 sequence_length = 300
 
